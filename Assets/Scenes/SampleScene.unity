@@ -441,8 +441,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -770, y: -177}
-  m_SizeDelta: {x: 300, y: 300}
+  m_AnchoredPosition: {x: -718, y: -178}
+  m_SizeDelta: {x: 400, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &126031809
 MonoBehaviour:
@@ -1783,6 +1783,92 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HintManager
   hintUI: {fileID: 247393383}
   hintText: {fileID: 126031809}
+--- !u!1 &1935485135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1935485139}
+  - component: {fileID: 1935485138}
+  - component: {fileID: 1935485137}
+  - component: {fileID: 1935485136}
+  m_Layer: 0
+  m_Name: HintTrigger(Spikes)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1935485136
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935485135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56369d9e7dfe0cd479e170945c842692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HintTrigger
+  hintMessage: "Hint:\n\nJump(Spacebar) on the floating platfrom \nto avoid falling
+    into the spike pit"
+  hintSystem: {fileID: 1126678228}
+  showOnlyOnce: 1
+  hasTriggered: 0
+--- !u!114 &1935485137
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935485135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936b5720460ddf84591a4d8b7078cd84, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HintManager
+  hintUI: {fileID: 247393383}
+  hintText: {fileID: 126031809}
+--- !u!65 &1935485138
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935485135}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1935485139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1935485135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.39, y: 12.82, z: 77.05}
+  m_LocalScale: {x: 22.468864, y: 6.9396143, z: 20.306475}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &543450651655202571
 Transform:
   m_ObjectHideFlags: 0
@@ -2205,4 +2291,5 @@ SceneRoots:
   - {fileID: 247393387}
   - {fileID: 137958860}
   - {fileID: 1933366910}
+  - {fileID: 1935485139}
   - {fileID: 1126678229}
