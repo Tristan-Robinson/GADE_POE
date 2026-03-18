@@ -12,6 +12,7 @@ public class HintTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+
         if (hasTriggered && showOnlyOnce) 
             return;
         if (other.CompareTag("Player"))
