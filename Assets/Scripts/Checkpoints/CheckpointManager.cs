@@ -5,8 +5,11 @@ public class CheckpointManager : MonoBehaviour
     public static CheckpointManager instance;
 
     public Transform player;
-    public int currentLives = 3;
-    public int currentScore = 0;
+
+    public int currentLives;
+    public int maxLives = 3;
+
+    public int currentScore;
 
     private CheckpointStack checkpointStack;
 
@@ -24,8 +27,13 @@ public class CheckpointManager : MonoBehaviour
 
     private void Start()
     {
-        mainCheckpoint = new CheckpointData(player.position, 3, 0);
-        checkpointStack.Push(new CheckpointData(player.position, currentLives, currentScore));
+        currentLives = maxLives;
+
+        CheckpointData startCheckpoint = new CheckpointData(player.position, currentLives, currentScore);
+
+        checkpointStack.Push(startCheckpoint);
+
+        mainCheckpoint = new CheckpointData(player.position, maxLives, currentScore);
     }
 
     public void ReachCheckpoint(Vector3 checkpointPosition)
@@ -43,7 +51,7 @@ public class CheckpointManager : MonoBehaviour
 
     public void setMainCheckpoint(Vector3 checkpointPosition)
     {
-        mainCheckpoint = new CheckpointData(checkpointPosition, 3, currentScore);
+        mainCheckpoint = new CheckpointData(checkpointPosition, maxLives, currentScore);
         Debug.Log("Main Checkpoint set: " + checkpointPosition);
     }
 
@@ -67,10 +75,7 @@ public class CheckpointManager : MonoBehaviour
         CheckpointData currentCheckpoint = checkpointStack.Peek();
 
         if (currentCheckpoint != null)
-        {
-            currentCheckpoint.lives = currentLives;
-            currentCheckpoint.score = currentScore;
-
+        { 
             player.position = currentCheckpoint.position;
             Debug.Log("Respawnded at Checkpoint");
         }
@@ -82,8 +87,7 @@ public class CheckpointManager : MonoBehaviour
         {
             player.position = mainCheckpoint.position;
 
-            currentLives = 3;
-            currentScore = mainCheckpoint.score;
+            currentLives = maxLives;
 
             Debug.Log("Player died. Respawned at Main checkpoint");
         }
