@@ -1,0 +1,26 @@
+[
+  {
+    "id": "move",
+    "message": "Hint: Use WASD to move your charcter"
+  },
+  {
+    "id": "jump",
+    "message": "Hint: Press Spacebar to jump"
+  },
+  {
+    "id": "sprint",
+    "message": "Hint: Press LShift to sprint"
+  },
+  {
+    "id": "spikes",
+    "message": "Hint: Spikes are dangerous and will kill you instantly, try jumping over them"
+  },
+  {
+    "id": "collectable",
+    "message": "Hint: Purple Gems will determine the players score. Blue gems are ULTIMATE gems, these count 10 points"
+  },
+  {
+    "id": "checkpoints",
+    "message": "Hint: When you loose a life you will respawn by small checkpoints, when you lose all your lives you will respawn at the last big checkpoint"
+  }
+]

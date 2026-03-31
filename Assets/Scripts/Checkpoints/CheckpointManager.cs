@@ -1,7 +1,10 @@
 using UnityEngine;
+using TMPro;
 
 public class CheckpointManager : MonoBehaviour
 {
+    public TextMeshProUGUI scoreText;
+
     public static CheckpointManager instance;
 
     public Transform player;
@@ -34,6 +37,8 @@ public class CheckpointManager : MonoBehaviour
         checkpointStack.Push(startCheckpoint);
 
         mainCheckpoint = new CheckpointData(player.position, maxLives, currentScore);
+
+        UpdateScoreUI();
     }
 
     public void ReachCheckpoint(Vector3 checkpointPosition)
@@ -76,8 +81,12 @@ public class CheckpointManager : MonoBehaviour
 
         if (currentCheckpoint != null)
         {
+            currentScore = currentCheckpoint.score;
+
             TeleportPlayer(currentCheckpoint.position);
             Debug.Log("Respawnded at Checkpoint");
+
+            UpdateScoreUI();
         }
     }
 
@@ -87,7 +96,10 @@ public class CheckpointManager : MonoBehaviour
         {
             TeleportPlayer(mainCheckpoint.position);
 
+            currentScore = mainCheckpoint.score;
             currentLives = maxLives;
+
+            UpdateScoreUI();
 
             Debug.Log("Player died. Respawned at Main checkpoint");
         }
@@ -109,8 +121,14 @@ public class CheckpointManager : MonoBehaviour
         }
     }
 
+    void UpdateScoreUI()
+    {
+        scoreText.text = "Score: " + currentScore;
+    }
+
     public void AddScore(int amount)
     {
         currentScore += amount;
+        UpdateScoreUI();
     }
 }

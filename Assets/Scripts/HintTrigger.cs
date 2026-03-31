@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class HintTrigger : MonoBehaviour
 {
-    [TextArea]
-    public string hintMessage;
+    public string dialogID;
 
     public HintManager hintSystem;
 
@@ -17,7 +16,7 @@ public class HintTrigger : MonoBehaviour
             return;
         if (other.CompareTag("Player"))
         {
-            hintSystem.ShowHint(hintMessage);
+            hintSystem.ShowDialog(dialogID);
             hasTriggered = true;
         }
     }
@@ -26,7 +25,7 @@ public class HintTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            hintSystem.HideHint();
+            hintSystem.HideDialog();
         }
     }
 }
