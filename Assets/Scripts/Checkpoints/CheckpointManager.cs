@@ -75,8 +75,8 @@ public class CheckpointManager : MonoBehaviour
         CheckpointData currentCheckpoint = checkpointStack.Peek();
 
         if (currentCheckpoint != null)
-        { 
-            player.position = currentCheckpoint.position;
+        {
+            TeleportPlayer(currentCheckpoint.position);
             Debug.Log("Respawnded at Checkpoint");
         }
     }
@@ -85,11 +85,27 @@ public class CheckpointManager : MonoBehaviour
     {
         if (mainCheckpoint != null)
         {
-            player.position = mainCheckpoint.position;
+            TeleportPlayer(mainCheckpoint.position);
 
             currentLives = maxLives;
 
             Debug.Log("Player died. Respawned at Main checkpoint");
+        }
+    }
+
+    private void TeleportPlayer(Vector3 position)
+    {
+        CharacterController controller = player.GetComponent<CharacterController>();
+
+        if (controller != null)
+        {
+            controller.enabled = false;
+            player.position = position;
+            controller.enabled = true;
+        }
+        else
+        {
+            player.position = position;
         }
     }
 
