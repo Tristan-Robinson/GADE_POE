@@ -1,7 +1,7 @@
 [
   {
     "id": "move",
-    "message": "Hint: Use WASD to move your charcter"
+    "message": "Hint: Use WASD to move your charcter. Move your mouse to control the camera"
   },
   {
     "id": "jump",
