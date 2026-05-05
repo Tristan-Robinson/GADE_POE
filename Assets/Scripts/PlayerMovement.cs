@@ -50,17 +50,16 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Update()
-    {   //resets jumps
+    {   
+        //resets jumps
         if (controller.isGrounded && verticalVelocity < 0)
         {
             verticalVelocity = -2f;
             jumpsRemaining = maxJumps;
         }
+
         //gravity
         verticalVelocity += gravity * Time.deltaTime;
-
-        //movement speed
-        float currentSpeed = (isSprinting ? sprintSpeed : walkSpeed) * speedMultiplier;
 
         //camera direction
         Vector3 cameraForward = cam.forward;
@@ -71,16 +70,21 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 move = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
 
-        //movement
+        //movement speed
+        float currentSpeed = (isSprinting ? sprintSpeed : walkSpeed) * speedMultiplier;
 
-        Vector3 velocity = move * currentSpeed + Vector3.up * verticalVelocity;
+        Vector3 horizontalMove = move * currentSpeed;
+
+        //movement
+        Vector3 velocity = horizontalMove + Vector3.up * verticalVelocity;
         controller.Move(velocity * Time.deltaTime);
 
+        //rotation
         if (move != Vector3.zero)
         {
-            
-                Quaternion targetrotation = Quaternion.LookRotation(move);
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetrotation, rotationSpeed * Time.deltaTime);
+
+            Quaternion targetrotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetrotation, rotationSpeed * Time.deltaTime);
 
         }
     }
