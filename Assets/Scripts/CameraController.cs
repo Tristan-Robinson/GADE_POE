@@ -34,7 +34,7 @@ public class CameraController : MonoBehaviour
 
         pitch = Mathf.Clamp(pitch, -30f, 60f);
 
-        Quaternion rotation = Quaternion.Euler(yaw, pitch, 0);
+        Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
 
         Vector3 targetPosition = target.position
             - rotation * Vector3.forward * distance
