@@ -21,10 +21,13 @@ public class PlayerMovement : MonoBehaviour
 
     public int gems = 0;
 
+    private Transform cam;
+
     private void Awake()
     {
         controller = GetComponent<CharacterController>();
         jumpsRemaining = maxJumps;
+        cam = Camera.main.transform;
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -59,15 +62,24 @@ public class PlayerMovement : MonoBehaviour
         //movement speed
         float currentSpeed = (isSprinting ? sprintSpeed : walkSpeed) * speedMultiplier;
 
+        //camera direction
+        Vector3 cameraForward = cam.forward;
+        Vector3 cameraRight = cam.right;
+
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        Vector3 move = cameraForward * moveDirection.y + cameraRight * moveDirection.x;
+
         //movement
-        Vector3 move = new Vector3(moveDirection.x, 0, moveDirection.y);
+
         Vector3 velocity = move * currentSpeed + Vector3.up * verticalVelocity;
         controller.Move(velocity * Time.deltaTime);
 
         if (move != Vector3.zero)
         {
-            Quaternion targetRotaion = Quaternion.LookRotation(move);
-            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotaion, rotationSpeed * Time.deltaTime);
+            Quaternion targetrotation = Quaternion.LookRotation(move);
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetrotation, rotationSpeed * Time.deltaTime);
         }
     }
 
