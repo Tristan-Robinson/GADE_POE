@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class CheckpointManager : MonoBehaviour
 {
@@ -21,23 +22,23 @@ public class CheckpointManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("CheckpointManager Awake: " + GetInstanceID());
+
         if (instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
-        checkpointStack = new CheckpointStack(10);
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
     }
 
     private void Start()
     {
         currentLives = maxLives;
-
-        CheckpointData startCheckpoint = new CheckpointData(player.position, currentLives, currentScore);
-
-        checkpointStack.Push(startCheckpoint);
-
-        mainCheckpoint = new CheckpointData(player.position, maxLives, currentScore);
-
         UpdateScoreUI();
     }
 
@@ -130,5 +131,32 @@ public class CheckpointManager : MonoBehaviour
     {
         currentScore += amount;
         UpdateScoreUI();
+    }
+
+    private void OnEnable()
+    {
+       SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        player = GameObject.FindGameObjectWithTag("Player").transform;
+        ResetLevelData();
+    }
+
+    private void ResetLevelData()
+    {
+        checkpointStack = new CheckpointStack(10);
+
+        mainCheckpoint = new CheckpointData(player.position, currentLives, currentScore);
+
+        mainCheckpoint = new CheckpointData(player.position, maxLives, currentScore);
+
+        checkpointStack.Push(mainCheckpoint);
     }
 }
