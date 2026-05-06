@@ -14,6 +14,12 @@ public class PatrolPath : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
+        if (waypointLocation == null || waypointLocation.Length == 0)
+        {
+            Debug.LogError("No waypoints assigned in Inspector!");
+            return;
+        }
+
         //adding waypoints
         foreach (Transform wp  in waypointLocation)
         {
