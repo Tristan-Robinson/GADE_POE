@@ -7,6 +7,9 @@ public class PlayerMovement : MonoBehaviour
     private bool isSprinting;
     private CharacterController controller;
 
+    private PlayerState currentState;
+    private Animator animator;
+
     public float walkSpeed = 5f;
     public float sprintSpeed = 10f;
     public float speedMultiplier = 1f;
@@ -23,8 +26,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Transform cam;
 
+    public enum PlayerState
+    {
+        Idle,
+        Walking,
+        Running,
+        Jumping
+    }
+
     private void Awake()
     {
+        animator = GetComponentInChildren<Animator>();
+
         controller = GetComponent<CharacterController>();
         jumpsRemaining = maxJumps;
         cam = Camera.main.transform;
@@ -86,6 +99,57 @@ public class PlayerMovement : MonoBehaviour
             Quaternion targetrotation = Quaternion.LookRotation(move);
             transform.rotation = Quaternion.Lerp(transform.rotation, targetrotation, rotationSpeed * Time.deltaTime);
 
+        }
+
+        UpdateState();
+        UpdateAnimation();
+
+    }
+
+    void UpdateState()
+    {
+        if(!controller.isGrounded)
+        {
+            currentState = PlayerState.Jumping;
+            return;
+        }
+        
+        if (moveDirection.magnitude <0.1f)
+        {
+            currentState = PlayerState.Idle;
+        }
+        else if (isSprinting)
+        {
+            currentState = PlayerState.Running;
+        }
+        else
+        {
+            currentState = PlayerState.Walking;
+        }
+    }
+
+    void UpdateAnimation()
+    {
+        switch (currentState)
+        {
+            case PlayerState.Idle:
+                animator.SetFloat("Speed", 0);
+                animator.SetBool("IsJumping", false);
+                break;
+
+            case PlayerState.Running:
+                animator.SetFloat("Speed", 1);
+                animator.SetBool("IsJumping", false);
+                break;
+
+            case PlayerState.Walking:
+                animator.SetFloat("Speed", 5);
+                animator.SetBool("IsJumping", false);
+                break;
+
+            case PlayerState.Jumping:
+                animator.SetBool("IsJumping", true);
+                break;
         }
     }
 
