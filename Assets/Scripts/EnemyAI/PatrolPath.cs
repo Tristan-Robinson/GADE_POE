@@ -3,7 +3,7 @@ using UnityEngine.AI;
 
 public class PatrolPath : MonoBehaviour
 {
-    public Transform[] waypointLocation;
+    public Transform waypointParent;
 
     private LinkedList<Transform> waypoints = new LinkedList<Transform>();
     private Node<Transform> currentNode;
@@ -14,14 +14,10 @@ public class PatrolPath : MonoBehaviour
     {
         agent = GetComponent<NavMeshAgent>();
 
-        if (waypointLocation == null || waypointLocation.Length == 0)
-        {
-            Debug.LogError("No waypoints assigned in Inspector!");
-            return;
-        }
+        waypoints = new LinkedList<Transform>();
 
         //adding waypoints
-        foreach (Transform wp  in waypointLocation)
+        foreach (Transform wp  in waypointParent)
         {
             waypoints.Add(wp);
         }

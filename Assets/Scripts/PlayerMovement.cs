@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private MovingPlatform currentPlatform;
 
-    private PlayerState currentState;
     private Animator animator;
 
     public float walkSpeed = 5f;
@@ -26,14 +25,6 @@ public class PlayerMovement : MonoBehaviour
     public int gems = 0;
 
     private Transform cam;
-
-    public enum PlayerState
-    {
-        Idle,
-        Walking,
-        Running,
-        Jumping
-    }
 
     private void Awake()
     {
@@ -70,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = -2f;
             jumpsRemaining = maxJumps;
+
             currentPlatform = null;
         }
 
@@ -91,14 +83,14 @@ public class PlayerMovement : MonoBehaviour
         Vector3 horizontalMove = move * currentSpeed;
 
         //movement
-        Vector3 velocity = horizontalMove + Vector3.up * verticalVelocity;
-
         Vector3 platformMovement = Vector3.zero;
 
         if (controller.isGrounded && currentPlatform != null)
         {
-            platformMovement = currentPlatform.GetDeltaMovement();
+            platformMovement = currentPlatform.GetMovement();
         }
+
+        Vector3 velocity = horizontalMove + Vector3.up * verticalVelocity;
 
         controller.Move((velocity + platformMovement) * Time.deltaTime);
 
@@ -110,67 +102,36 @@ public class PlayerMovement : MonoBehaviour
             transform.rotation = Quaternion.Lerp(transform.rotation, targetrotation, rotationSpeed * Time.deltaTime);
 
         }
-
-        UpdateState();
         UpdateAnimation();
 
     }
 
-    void UpdateState()
-    {
-        if(!controller.isGrounded)
-        {
-            currentState = PlayerState.Jumping;
-            return;
-        }
-        
-        if (moveDirection.magnitude <0.1f)
-        {
-            currentState = PlayerState.Idle;
-        }
-        else if (isSprinting)
-        {
-            currentState = PlayerState.Running;
-        }
-        else
-        {
-            currentState = PlayerState.Walking;
-        }
-    }
-
     void UpdateAnimation()
     {
-        switch (currentState)
+        float speed = moveDirection.magnitude;
+
+        if (isSprinting)
         {
-            case PlayerState.Idle:
-                animator.SetFloat("Speed", 0);
-                animator.SetBool("IsJumping", false);
-                break;
-
-            case PlayerState.Running:
-                animator.SetFloat("Speed", 1);
-                animator.SetBool("IsJumping", false);
-                break;
-
-            case PlayerState.Walking:
-                animator.SetFloat("Speed", 5);
-                animator.SetBool("IsJumping", false);
-                break;
-
-            case PlayerState.Jumping:
-                animator.SetBool("IsJumping", true);
-                break;
+            speed = 1f;
         }
+        else if (speed > 0)
+        {
+            speed = 0.5f;
+        }
+
+        animator.SetFloat("Speed", speed);
+        animator.SetBool("IsJumping", !controller.isGrounded);
     }
 
     //MovingPlatform
     private void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        MovingPlatform platform = hit.collider.GetComponent<MovingPlatform>();
-
-        if (platform != null)
+        if (hit.collider.TryGetComponent(out MovingPlatform platform))
         {
-            currentPlatform = platform;
+            if (hit.normal.y > 0.5f)
+            {
+                currentPlatform = platform;
+            }
         }
     }
 

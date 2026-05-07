@@ -8,6 +8,7 @@ public class MovingPlatform : MonoBehaviour
 
     private Vector3 target;
     private Vector3 lastPosition;
+    private Vector3 frameMovement;
 
     private void Start()
     {
@@ -21,14 +22,15 @@ public class MovingPlatform : MonoBehaviour
 
         if (Vector3.Distance(transform.position, target) <0.1f)
         {
-            target = target == pointB.position ? pointA.position : pointB.position;
+            target = target == pointA.position ? pointB.position : pointA.position;
         }
+
+        frameMovement = transform.position - lastPosition;
+        lastPosition = transform.position;
     }
 
-    public Vector3 GetDeltaMovement ()
+    public Vector3 GetMovement()
     {
-        Vector3 delta = transform.position - lastPosition;
-        lastPosition = transform.position;
-        return delta;
+        return frameMovement;
     }
 }
