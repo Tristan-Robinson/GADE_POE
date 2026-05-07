@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     private Vector2 moveDirection;
     private bool isSprinting;
     private CharacterController controller;
+    private MovingPlatform currentPlatform;
 
     private PlayerState currentState;
     private Animator animator;
@@ -69,6 +70,7 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = -2f;
             jumpsRemaining = maxJumps;
+            currentPlatform = null;
         }
 
         //gravity
@@ -90,7 +92,15 @@ public class PlayerMovement : MonoBehaviour
 
         //movement
         Vector3 velocity = horizontalMove + Vector3.up * verticalVelocity;
-        controller.Move(velocity * Time.deltaTime);
+
+        Vector3 platformMovement = Vector3.zero;
+
+        if (controller.isGrounded && currentPlatform != null)
+        {
+            platformMovement = currentPlatform.GetDeltaMovement();
+        }
+
+        controller.Move((velocity + platformMovement) * Time.deltaTime);
 
         //rotation
         if (move != Vector3.zero)
@@ -152,6 +162,18 @@ public class PlayerMovement : MonoBehaviour
                 break;
         }
     }
+
+    //MovingPlatform
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        MovingPlatform platform = hit.collider.GetComponent<MovingPlatform>();
+
+        if (platform != null)
+        {
+            currentPlatform = platform;
+        }
+    }
+
 
     //pickups
     public void AddGems(int amount)
