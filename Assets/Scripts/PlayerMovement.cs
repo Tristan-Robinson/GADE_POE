@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator animator;
 
     public float walkSpeed = 5f;
-    public float sprintSpeed = 10f;
+    public float sprintSpeed = 15f;
     public float speedMultiplier = 1f;
 
     public float jumpHeight = 4f;
