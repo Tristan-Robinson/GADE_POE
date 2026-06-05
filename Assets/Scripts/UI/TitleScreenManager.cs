@@ -37,7 +37,7 @@ public class TitleScreenManager : MonoBehaviour
     }
     public void CloseLevelSelect()
     {
-        mainMenuPanel.SetActive(true);
+        playMenuPanel.SetActive(true);
         levelSelectPanel.SetActive(false);
     }
 
