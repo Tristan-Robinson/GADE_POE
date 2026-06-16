@@ -1,28 +1,43 @@
+using System.Net;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour
 {
-    public Transform pointA;
-    public Transform pointB;
+    public Transform[] points;
     public float speed = 2f;
+    public bool loop = true;
 
+    private int currentIndex = 0;
     private Vector3 target;
     private Vector3 lastPosition;
     private Vector3 frameMovement;
 
     private void Start()
     {
-        target = pointB.position;
+        if (points.Length == 0) return;
+        
+            currentIndex = 0;
+            target = points[currentIndex].position;
+        
+        
         lastPosition = transform.position;
     }
 
-    private void Update()
+    private void LateUpdate()
     {
+        if (points.Length == 0) { return; }
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, target) <0.1f)
         {
-            target = target == pointA.position ? pointB.position : pointA.position;
+            currentIndex++;
+
+            if (currentIndex >= points.Length)
+            {
+                currentIndex = loop ? 0 : points.Length -1 ;
+            }
+
+            target = points[currentIndex].position;
         }
 
         frameMovement = transform.position - lastPosition;
