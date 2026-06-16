@@ -12,6 +12,8 @@ public class MovingPlatform : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 frameMovement;
 
+    private bool isActive = false;
+
     private void Start()
     {
         if (points.Length == 0) return;
@@ -25,7 +27,13 @@ public class MovingPlatform : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (points.Length == 0) { return; }
+        if (!isActive || points.Length == 0)
+        {
+            frameMovement = Vector3.zero;
+            lastPosition = transform.position;
+            return; 
+        }
+
         transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
         if (Vector3.Distance(transform.position, target) <0.1f)
@@ -47,5 +55,14 @@ public class MovingPlatform : MonoBehaviour
     public Vector3 GetMovement()
     {
         return frameMovement;
+    }
+
+    public void ActivatePlatform()
+    {
+        isActive = true;
+    }
+    public void DeactivatePlatfrom()
+    {
+        isActive = false;
     }
 }
