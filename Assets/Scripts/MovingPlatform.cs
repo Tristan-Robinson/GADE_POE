@@ -9,6 +9,7 @@ public class MovingPlatform : MonoBehaviour
     private Vector3 target;
     private Vector3 lastPosition;
     private Vector3 frameMovement;
+    private Vector3 SmoothedMovement;
 
     private void Start()
     {
@@ -29,8 +30,19 @@ public class MovingPlatform : MonoBehaviour
         lastPosition = transform.position;
     }
 
+    private void LateUpdate()
+    {
+        Vector3 rawmovement = transform.position - lastPosition;
+
+        SmoothedMovement = Vector3.Lerp(SmoothedMovement, rawmovement, 0.5f);
+
+        lastPosition = transform.position;
+    }
+
     public Vector3 GetMovement()
     {
         return frameMovement;
+
+        return SmoothedMovement;
     }
 }

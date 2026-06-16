@@ -61,7 +61,10 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = -2f;
             jumpsRemaining = maxJumps;
+        }
 
+        if (!controller.isGrounded)
+        {
             currentPlatform = null;
         }
 
@@ -92,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
 
         Vector3 velocity = horizontalMove + Vector3.up * verticalVelocity;
 
-        controller.Move((velocity + platformMovement) * Time.deltaTime);
+        controller.Move((velocity * Time.deltaTime) + platformMovement);
 
         //rotation
         if (move != Vector3.zero)
