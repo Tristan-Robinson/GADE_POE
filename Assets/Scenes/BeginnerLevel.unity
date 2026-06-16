@@ -3752,7 +3752,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 6038c85f-8690-499e-a3a2-02d05a4d99ba
+    m_ActionId: d622b44a-9ce6-4a0a-8f57-53845052bb89
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
@@ -14639,6 +14639,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
   scoreText: {fileID: 487990473}
+  livesText: {fileID: 0}
   player: {fileID: 0}
   currentLives: 3
   maxLives: 3

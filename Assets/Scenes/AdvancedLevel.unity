@@ -4339,6 +4339,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1352863555}
+        m_TargetAssemblyTypeName: PauseMenu, Assembly-CSharp
+        m_MethodName: OnPause
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d622b44a-9ce6-4a0a-8f57-53845052bb89
+    m_ActionName: 'Player/Pause[/Keyboard/escape]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: 
@@ -4580,9 +4596,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db80b4453f19914cb12621c542625bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatform
-  pointA: {fileID: 1273362356}
-  pointB: {fileID: 34687283}
+  points: []
   speed: 2
+  loop: 1
+  startActive: 1
 --- !u!1001 &383262962
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5478,9 +5495,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db80b4453f19914cb12621c542625bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatform
-  pointA: {fileID: 1737228967}
-  pointB: {fileID: 325033775}
+  points: []
   speed: 2
+  loop: 1
+  startActive: 1
 --- !u!1001 &472166493
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9992,9 +10010,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db80b4453f19914cb12621c542625bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatform
-  pointA: {fileID: 1721901798}
-  pointB: {fileID: 2053127968}
+  points: []
   speed: 2
+  loop: 1
+  startActive: 1
 --- !u!1001 &863405377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13278,6 +13297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CheckpointManager
   scoreText: {fileID: 211364974}
+  livesText: {fileID: 0}
   player: {fileID: 830626547}
   currentLives: 3
   maxLives: 3
@@ -14451,9 +14471,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3db80b4453f19914cb12621c542625bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovingPlatform
-  pointA: {fileID: 1094960165}
-  pointB: {fileID: 1698689711}
+  points: []
   speed: 2
+  loop: 1
+  startActive: 1
 --- !u!1001 &1141828933
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22277,7 +22298,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.7966667
+  m_VoxelSize: 0.53333336
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 0278ae4a5c914624085914fe67fb26e5, type: 2}
   m_BuildHeightMesh: 0

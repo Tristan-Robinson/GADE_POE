@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 public class CheckpointManager : MonoBehaviour
 {
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI livesText;
 
     public static CheckpointManager instance;
 
@@ -40,6 +41,7 @@ public class CheckpointManager : MonoBehaviour
     {
         currentLives = maxLives;
         UpdateScoreUI();
+        UpdateLivesUI();
     }
 
     public void ReachCheckpoint(Vector3 checkpointPosition)
@@ -64,6 +66,7 @@ public class CheckpointManager : MonoBehaviour
     public void PlayerDeath()
     {
         currentLives--;
+        UpdateLivesUI();
         Debug.Log("Player died. Lives left: " + currentLives);
 
         if (currentLives > 0)
@@ -100,6 +103,8 @@ public class CheckpointManager : MonoBehaviour
             currentScore = mainCheckpoint.score;
             currentLives = maxLives;
 
+            UpdateLivesUI();
+
             UpdateScoreUI();
 
             Debug.Log("Player died. Respawned at Main checkpoint");
@@ -127,6 +132,11 @@ public class CheckpointManager : MonoBehaviour
         scoreText.text = "Score: " + currentScore;
     }
 
+    private void UpdateLivesUI()
+    {
+        livesText.text = "Lives" + currentLives; 
+    }
+
     public void AddScore(int amount)
     {
         currentScore += amount;
@@ -152,8 +162,6 @@ public class CheckpointManager : MonoBehaviour
     private void ResetLevelData()
     {
         checkpointStack = new CheckpointStack(10);
-
-        mainCheckpoint = new CheckpointData(player.position, currentLives, currentScore);
 
         mainCheckpoint = new CheckpointData(player.position, maxLives, currentScore);
 

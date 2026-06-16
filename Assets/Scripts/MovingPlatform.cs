@@ -12,10 +12,13 @@ public class MovingPlatform : MonoBehaviour
     private Vector3 lastPosition;
     private Vector3 frameMovement;
 
-    private bool isActive = false;
+    public bool startActive = true;
+    private bool isActive;
 
     private void Start()
     {
+        isActive = startActive;
+
         if (points.Length == 0) return;
         
             currentIndex = 0;

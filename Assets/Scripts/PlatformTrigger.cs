@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlatformTrigger : MonoBehaviour
 {
     public MovingPlatform platform;
+    public NotificationUI notificationUI;
 
     private bool activated = false;
 
@@ -11,10 +12,13 @@ public class PlatformTrigger : MonoBehaviour
         if (activated)
             return;
 
-        if (other.CompareTag("player"))
+        if (other.CompareTag("Player"))
         {
             platform.ActivatePlatform();
-            activated = true; 
+
+            notificationUI.ShowMessage("The Platform Started Moving!", 3f);
+
+            activated = true;
         }
     }
 }
