@@ -54,6 +54,9 @@ public class CheckpointManager : MonoBehaviour
         }
 
         checkpointStack.Push(newCheckpoint);
+
+        SFXManager.Instance.PlaySound("Checkpoint");
+
         Debug.Log("Checkpoint reached" + checkpointPosition);
     }
 
@@ -65,6 +68,8 @@ public class CheckpointManager : MonoBehaviour
 
     public void PlayerDeath()
     {
+        SFXManager.Instance.PlaySound("Death");
+
         currentLives--;
         UpdateLivesUI();
         Debug.Log("Player died. Lives left: " + currentLives);
@@ -134,7 +139,7 @@ public class CheckpointManager : MonoBehaviour
 
     private void UpdateLivesUI()
     {
-        livesText.text = "Lives" + currentLives; 
+        livesText.text = "Lives: " + currentLives; 
     }
 
     public void AddScore(int amount)

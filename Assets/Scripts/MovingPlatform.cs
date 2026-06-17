@@ -63,6 +63,8 @@ public class MovingPlatform : MonoBehaviour
     public void ActivatePlatform()
     {
         isActive = true;
+
+        SFXManager.Instance.PlaySound("Platform");
     }
     public void DeactivatePlatfrom()
     {
